@@ -33,19 +33,13 @@ contract DeployMerkleAirdrop is DeploymentScript {
         require(tokenAddress != address(0), "Invalid token address");
         require(merkleRoot != bytes32(0), "Invalid merkle root");
 
-        MerkleAirdrop merkleAirdrop = new MerkleAirdrop(
-            IERC20Metadata(tokenAddress),
-            merkleRoot
-        );
+        MerkleAirdrop merkleAirdrop = new MerkleAirdrop(IERC20Metadata(tokenAddress), merkleRoot);
 
         if (address(merkleAirdrop) == address(0)) {
             revert AirdropDeploymentFailed();
         }
 
-        console.log(
-            "MerkleAirdrop deployed successfully at: %s",
-            address(merkleAirdrop)
-        );
+        console.log("MerkleAirdrop deployed successfully at: %s", address(merkleAirdrop));
 
         vm.stopBroadcast();
     }

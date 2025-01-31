@@ -23,8 +23,7 @@ contract MerkleAirdropTest is Test {
     bytes32[] johnProof = new bytes32[](3);
 
     // merkleRoot of alice, bob, bighead
-    bytes32 merkleRoot1 =
-        0x5d4b0fe136f29f1d289db44799922e478233784e41f3503c3978c30aa062e340;
+    bytes32 merkleRoot1 = 0x5d4b0fe136f29f1d289db44799922e478233784e41f3503c3978c30aa062e340;
 
     function setUp() public {
         emit log_address(alice);
@@ -34,17 +33,11 @@ contract MerkleAirdropTest is Test {
         emit log_address(john);
 
         // Merkle Proof for alice
-        aliceProof[
-            0
-        ] = 0x561fb36e5ca9909a808f1e83a1363762ff75b9a121babb0178f6c9fc690a1367;
+        aliceProof[0] = 0x561fb36e5ca9909a808f1e83a1363762ff75b9a121babb0178f6c9fc690a1367;
 
         // Merkle Proof for john after merkle tree update
-        johnProof[
-            0
-        ] = 0x91f0946464aa7ec225a6fe8d6c3e196078687e2b51bcf5666e1289cbd40f949c;
-        johnProof[
-            1
-        ] = 0x4d35e39cf877ec72e09d991a3afa2a98adc6975a4f8f792eccefc9b416159052;
+        johnProof[0] = 0x91f0946464aa7ec225a6fe8d6c3e196078687e2b51bcf5666e1289cbd40f949c;
+        johnProof[1] = 0x4d35e39cf877ec72e09d991a3afa2a98adc6975a4f8f792eccefc9b416159052;
 
         vm.startPrank(deployer);
         token = new Token("Test Token", "TT", 18, 1000000 ether);
@@ -88,9 +81,7 @@ contract MerkleAirdropTest is Test {
         vm.expectRevert(MerkleAirdrop.NotInMerkleTree.selector);
         merkleAirdrop.claim(2000 ether, aliceProof);
 
-        aliceProof[
-            0
-        ] = 0xca6d546259ec0929fd20fbc9a057c980806abef37935fb5ca5f6a179718f1481;
+        aliceProof[0] = 0xca6d546259ec0929fd20fbc9a057c980806abef37935fb5ca5f6a179718f1481;
 
         vm.expectRevert(MerkleAirdrop.NotInMerkleTree.selector);
         merkleAirdrop.claim(2 ether, aliceProof);
@@ -152,10 +143,7 @@ contract MerkleAirdropTest is Test {
         merkleAirdrop.withdraw(deployer, 100 ether);
         vm.stopPrank();
 
-        assertEq(
-            token.balanceOf(address(merkleAirdrop)),
-            initialBalance - 100 ether
-        );
+        assertEq(token.balanceOf(address(merkleAirdrop)), initialBalance - 100 ether);
         assertEq(token.balanceOf(deployer), 100 ether);
     }
 
